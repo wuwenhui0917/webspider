@@ -10,6 +10,16 @@ public class XpathRule {
 	
 	private String domainUrl;
 	
+	private String linkRex;
+	
+	public String getLinkRex() {
+		return linkRex;
+	}
+
+	public void setLinkRex(String linkRex) {
+		this.linkRex = linkRex;
+	}
+
 	public String getDomainUrl() {
 		return domainUrl;
 	}

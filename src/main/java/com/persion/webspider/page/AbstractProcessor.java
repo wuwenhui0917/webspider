@@ -46,19 +46,27 @@ public abstract  class AbstractProcessor implements WebspiderProcess {
 	@Override
 	public void process(Page page) {
 		
-		System.out.println(page.getUrl());
+		
 		
 		 if(!page.getUrl().regex(this.executeRule.getDomainUrl()).match()) return;
-		
+		 System.out.println(page.getUrl());
 		 //不符合条件
 		 if(!page.getUrl().regex(this.executeRule.getPageRule()).match()){
+			// System.out.println("不符合");
 	            //鍔犲叆婊¤冻鏉′欢鐨勯摼鎺?
 	        	List<String> okurls = new ArrayList<String>();
 	        	List<String> urls = page.getHtml().xpath(this.executeRule.getLinkRule()).all();
 	        	for(String url:urls){
 	        		if(url.startsWith(this.executeRule.getDomainUrl())){
+	        			// System.out.println("url++++"+url);
 	        			if(hasCheck.get(url)==null){
-	            			okurls.add(url);
+	        				if(this.executeRule.getLinkRex()!=null&&!"".equals(this.executeRule.getLinkRex())){
+	        					if(url.startsWith(this.executeRule.getLinkRex())){
+		        					okurls.add(url);
+		        				}
+	        				}
+	        				
+	            			
 
 	        			}
 	        		}
@@ -68,6 +76,7 @@ public abstract  class AbstractProcessor implements WebspiderProcess {
 	        }
 		 else {
 			    hasCheck.put(page.getUrl().get(),"1");
+			    System.out.println("符合条件");
 			    
 			    WebPage webpage = new WebPage(page);
 			    this.execute(webpage, this.executeRule);

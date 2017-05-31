@@ -17,6 +17,7 @@ public class SimpleProcessor  extends AbstractProcessor{
 
 	@Override
 	public void execute(WebPage page, XpathRule rule) {
+		System.out.println(">>>>>>>>>>>>>"+page.getUrl().toString());
 		ResultItem item = new ResultItem();
 		List<String> ruleinfo = rule.getTagRule();
 		for(String rule1:ruleinfo){

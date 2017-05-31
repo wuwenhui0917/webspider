@@ -10,16 +10,21 @@ import com.persion.webspider.storage.PageContentStorage;
 public class TestProcess {
 	
 	public static void main(String[] a){
+		
+		String url = "http://news.qq.com/a/20170531/016031.htm";
+		System.out.println(url.startsWith("http://news.qq.com/a/20170531/016031"));
 		//设置规则
 		XpathRule rule = new XpathRule();
 		//设置开始扫描主站
-		rule.setDomainUrl("http://www.zaowannews.cn");
+		rule.setDomainUrl("http://news.qq.com/");
 		//设置url链接
 		rule.setLinkRule("//a/@href");
 		//符合条件的链接
-		rule.setPageRule("http://www.zaowannews.cn/a/[a-z 0-9 -]+/[0-9]{5,10}.html");
+		//rule.setPageRule("http://news.qq.com/a/20170531/[a-z 0-9 -]+/[0-9]{5,10}.htm");
+		rule.setPageRule("http://news.qq.com/a/20170531/[0-9]{5,10}.htm");
+		rule.setLinkRex("http://news.qq.com/a/20170531/");
 		//符合条件的内容
-		rule.addTagRule("//div[@class='content']");
+		rule.addTagRule("//*[@id=\"Cnt-Main-Article-QQ\"]");
 		//持久化内容
 		PageContentStorage echo= new EchoStorage();
 		//处理器
